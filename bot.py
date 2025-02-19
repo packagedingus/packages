@@ -48,9 +48,11 @@ def create_pull_request(branch_name, package_name, version, url, base_branch="ma
         'vers': version,
         'url': url
     }
-    os.makedirs(f"./{branch_name}/packages/{package_name}", exist_ok=True)
 
-    package_toml_path = f"./{branch_name}/packages/{package_name}/package.toml"
+    package_dir = f"./packages/{package_name}"  # No extra subfolders, directly under packages
+    os.makedirs(package_dir, exist_ok=True)
+
+    package_toml_path = f"{package_dir}/package.toml"
     with open(package_toml_path, 'w') as toml_file:
         toml.dump(package_data, toml_file)
 
@@ -73,6 +75,12 @@ def create_pull_request(branch_name, package_name, version, url, base_branch="ma
         return pr_url
     else:
         return None
+
+def rename_old_package_toml(package_name, version):
+    old_toml_path = f"./packages/{package_name}/package.toml"
+    if os.path.exists(old_toml_path):
+        new_filename = f"package{version.replace('.', '')}.toml"
+        os.rename(old_toml_path, f"./packages/{package_name}/{new_filename}")
 
 def comment_on_issue(issue_number, comment):
     comment_url = f"{issues_url}/{issue_number}/comments"
@@ -117,6 +125,7 @@ def main():
                 if name and version and url:
                     try:
                         branch_name = f"update-{name}-{version}"
+                        rename_old_package_toml(name, version)
                         pr_url = create_pull_request(branch_name, name, version, url)
 
                         if pr_url:
