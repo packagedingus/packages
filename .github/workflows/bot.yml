@@ -4,15 +4,16 @@ on:
   issues:
     types: [opened, edited]
 
-permissions:
-  repo: write
-  workflow: write
-  pull-requests: write
-  issues: write
-
 jobs:
   run-bot:
     runs-on: ubuntu-latest
+
+    permissions:
+      issues: write
+      pull-requests: write
+      contents: write
+      workflow: write
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
