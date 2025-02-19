@@ -5,7 +5,7 @@ import re
 
 repo_owner = 'packagedingus'
 repo_name = 'packages'
-bot_token = os.getenv('GITHUB_TOKEN')
+bot_token = os.getenv('BOT_TOKEN')
 bot_email = os.getenv('BOT_EMAIL', 'packagedingusbot@users.noreply.github.com')
 
 issues_url = f"https://api.github.com/repos/{repo_owner}/{repo_name}/issues"
