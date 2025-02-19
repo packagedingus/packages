@@ -49,7 +49,7 @@ def create_pull_request(branch_name, package_name, version, url, base_branch="ma
         'url': url
     }
 
-    package_dir = f"./packages/{package_name}"  # No extra subfolders, directly under packages
+    package_dir = f"./packages/{package_name}"
     os.makedirs(package_dir, exist_ok=True)
 
     package_toml_path = f"{package_dir}/package.toml"
@@ -58,9 +58,12 @@ def create_pull_request(branch_name, package_name, version, url, base_branch="ma
 
     os.system(f"git config --global user.email '{bot_email}'")
     os.system(f"git config --global user.name 'packagedingusbot'")
+
     os.system(f"git checkout -b {branch_name}")
     os.system(f"git add {package_toml_path}")
+
     os.system(f"git commit -m '{commit_message}'")
+
     os.system(f"git push origin {branch_name}")
 
     pr_data = {
