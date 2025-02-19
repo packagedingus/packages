@@ -25,4 +25,4 @@ jobs:
         run: |
           python bot.py
         env:
-          GITHUB_TOKEN: ${{ secrets.BOT_TOKEN }}
+          BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
