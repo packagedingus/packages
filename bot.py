@@ -5,7 +5,8 @@ import re
 
 repo_owner = 'packagedingus'
 repo_name = 'packages'
-bot_token = os.getenv('BOT_TOKEN')
+bot_token = os.getenv('GITHUB_TOKEN')
+bot_email = os.getenv('BOT_EMAIL', 'packagedingusbot@users.noreply.github.com')
 
 issues_url = f"https://api.github.com/repos/{repo_owner}/{repo_name}/issues"
 pulls_url = f"https://api.github.com/repos/{repo_owner}/{repo_name}/pulls"
@@ -15,6 +16,9 @@ headers = {
     'Authorization': f'token {bot_token}',
     'Accept': 'application/vnd.github.v3+json'
 }
+
+os.system(f'git config --global user.email "{bot_email}"')
+os.system('git config --global user.name "packagedingusbot"')
 
 def fetch_issues():
     response = requests.get(issues_url, headers=headers)
