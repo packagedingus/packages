@@ -9,10 +9,9 @@ jobs:
     runs-on: ubuntu-latest
 
     permissions:
+      contents: write
       issues: write
       pull-requests: write
-      contents: write
-      workflow: write
 
     steps:
       - name: Checkout repository
