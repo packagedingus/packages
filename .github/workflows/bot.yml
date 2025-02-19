@@ -4,11 +4,17 @@ on:
   issues:
     types: [opened, edited]
 
+permissions:
+  repo: write
+  workflow: write
+  pull-requests: write
+  issues: write
+
 jobs:
   run-bot:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
+      - name: Checkout repository
         uses: actions/checkout@v2
 
       - name: Set up Python
@@ -26,3 +32,4 @@ jobs:
           python bot.py
         env:
           BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
+          BOT_EMAIL: ${{ secrets.BOT_EMAIL }}
